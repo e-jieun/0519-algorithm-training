@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+    <button id="button-left">&lt;</button>
+    <section id="1">1</section>
+    <section id="2">2</section>
+    <section id="3">3</section>
+    <section id="4">4</section>
+    <section id="5">5</section>
+    <button id="button-right">&gt;</button>
+  </div>
+
+  <script>
+    const root = document.getElementById('root');
+    const section = document.getElementsByTagName('section');
+    const leftBtn = document.querySelector('#button-left');
+    const rightBtn = document.getElementById('button-right');
+
+    console.log(root);
+    console.log(section);
+    console.log(leftBtn);
+    console.log(rightBtn);
+
+    root.style.display = 'flex';
+
+    // <!--*우선 button 사이에 들어갈 5개의 요소를 만들어 준다-->
+    const numberSection = Array.from(section);
+    console.log(numberSection);
+    // <!--*왼쪽 버튼을 클릭하면 첫번째 요소가 마지막 순서로 이동한다-->
+    let temp;
+
+    // clickevent 왼쪽버튼
+    leftBtn.addEventListener('click', function (event) {
+      console.log('leftBtn event');
+      // console.log(event);
+      temp = numberSection[0];
+      // console.log(temp);
+      // 마지막 요소로 배열의 0번에 추가를 한다 push(numberSection[0]);
+      numberSection.push(temp);
+      // 첫번째 요소를 제거하고 반환해주는 shift();
+      numberSection.shift();
+      // <!--?콘솔을 보니까 왜 아이디는 바뀐 것으로 되어있는데 배열에는 화면에서 실제로 변화가 없는 이유?-->
+      // <!--todo: 배열을 걷어내고 할당을 다시해줘야 하는 상황이다-->
+      console.log(numberSection);
+    });
+
+    // <!--*오른쪽 버튼을 클릭하면 마지막 요소가 첫 순서로 이동한다-->
+    rightBtn.addEventListener('click', function () {
+      console.log('rightBtn');
+      temp = numberSection[numberSection.length - 1];
+      numberSection.unshift(temp);
+      numberSection.pop();
+      console.log(numberSection);
+      // <!--todo: 기존의 배열을 걷어내고 할당을 다시해줘야 하는 상황이다-->
+      // 배열 값을 없애주고
+      // 다시 배열 안에 값을 push 해줘야 한다 => splice
+      // <!--?1. 여기까지의 배열을 다시 numberSection 배열에 할당해주면 화면에서 적용이 되지 않을까?-->
+      // splice()
+      numberSection.splice();
+      // <!--?2. 배열을 새로운 빈 배열을 만들어주고 배열 메서드로 수행한 부분을 새로운 빈 배열에 담아서 concat()하면 되지 않을까? --> 
+      // concat()
+      numberSection.concat();
+    })
+
+  </script>
+</body>
+
+</html>

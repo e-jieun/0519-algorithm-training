@@ -39,6 +39,8 @@
     // <!--*왼쪽 버튼을 클릭하면 첫번째 요소가 마지막 순서로 이동한다--> 
     // <!--?첫 요소를 slice()해서 push()로 배열의 끝에 추가해주고 새로운 길이를 반환하도록 한다 -->
 
+    let temp;
+
     // clickevent 왼쪽버튼
     leftBtn.addEventListener('click', function(event){
       console.log('leftBtn event');
@@ -58,7 +60,15 @@
           // numberSection.concat(numberSection.shift());
           // <!--!shift는 어차피 첫번째 요소를 제거해주니까 인덱스를 넣어줄 필요가 없음-->
           // <!--?왜 콘솔로는 찍히는데 실제로 적용은 안되는 걸까?-->
-          console.log(numberSection.concat(numberSection.push(numberSection.shift())));
+          // console.log(numberSection.concat(numberSection.push(numberSection.shift())));
+
+        temp = numberSection[0];
+        console.log(temp);
+        numberSection.push(temp);
+        numberSection.shift();
+        console.log(numberSection);
+
+
         // }))
         // console.log(numberSection.reduce(function(element){
         // }))
@@ -72,9 +82,13 @@
       // clickevent 오른쪽버튼
     rightBtn.addEventListener('click', function(){
       console.log('rightBtn');
-      // <!--?왜 콘솔로는 찍히는데 실제로 적용은 안되는 걸까?-->
-      console.log(numberSection.concat(numberSection.unshift(numberSection.pop())));
-    });
+      // // <!--?왜 콘솔로는 찍히는데 실제로 적용은 안되는 걸까?-->
+      // console.log(numberSection.concat(numberSection.unshift(numberSection.pop())));
+        temp = numberSection[numberSection.length-1];
+        numberSection.unshift(temp);
+        numberSection.pop();
+        console.log(numberSection);
+      })
       //     마지막 요소를 numberSection.pop()으로 제거하고 반환한 요소를
       //     첫 요소에 numberSection.unshift()로 배열 첫번째에 추가해줘
 
