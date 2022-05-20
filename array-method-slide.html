@@ -67,6 +67,9 @@
         numberSection.push(temp);
         numberSection.shift();
         console.log(numberSection);
+        numberSection.forEach(function(element, index){
+          element.textContent = section[index].textContent;
+        })
 
 
         // }))
@@ -88,6 +91,9 @@
         numberSection.unshift(temp);
         numberSection.pop();
         console.log(numberSection);
+        numberSection.forEach(function(element, index){
+          element.textContent = section[index].textContent;
+        })
       })
       //     마지막 요소를 numberSection.pop()으로 제거하고 반환한 요소를
       //     첫 요소에 numberSection.unshift()로 배열 첫번째에 추가해줘
