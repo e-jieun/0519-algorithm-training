@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+    <button id="left-btn">&lt;</button>
+    <div id="number-con"></div>
+    <button id="right-btn">&gt;</button>
+  </div>
+
+  <script>
+    const root = document.getElementById('root');
+    const leftBtn = document.getElementById('left-btn');
+    const rightBtn = document.getElementById('right-btn');
+    const numberCon = document.getElementById('number-con');
+    console.log(root);
+    console.log(leftBtn);
+    console.log(rightBtn);
+    console.log(numberCon);
+
+    function appendName(element) {
+      if (element.tagName !== null && element.tagName !== '') {
+        console.log(element.tagName.toLowerCase());
+        return element.tagName;
+      }
+    }
+    appendName(root);
+
+    const numberArr = [1, 2, 3, 4, 5];
+    // 다섯 개의 숫자 자식요소를 덧붙여주자
+    // <!--!배열 선언까지는 괜찮았지만 추가로 덧붙여주는 부분은 미리 덧붙이는 것이 아니라 모든 배열의 순서 계산이 끝난 이후에 붙여줬어야 했다-->
+    // for (let i = 0; i < 5; i++) {
+    //   const makeNum = document.createElement(appendName(root)); //5개가 생긴다
+    //   // <!--!특히 textContent를 append하면서 붙여줄 때의 부분이 숫자가 제대로 나오는 것에 문제가 되기 때문에 조심해줘야 한다-->
+    //   makeNum.textContent = numberArr[i];
+    //   makeNum.id = `${numberArr[i]}`;
+    //   makeNum.classList = 'number';
+    //   numberCon.appendChild(makeNum);
+    // }
+    // console.log(numberCon); //5개의 자식요소가 생겼다
+
+    // 다섯 개의 숫자 자식요소를 배열로 만들어주고 배열 메서드를 사용해서 컨트롤 할 수 있도록 해주자
+    // const num = document.getElementsByClassName('number');
+    // console.log(num);
+    // const numItem = Array.from(num);
+
+    let temp;
+    // 오른쪽 버튼 클릭 이벤트
+    // <!--*여기서부터 다시 작성해보자-->
+    root.addEventListener('click', function (event) {
+      console.log(event.target.id);
+      // let eventTargetId = event.target.id;
+      if (event.target.id === 'left-btn') {
+        console.log('왼 누름');
+        // <!--?왼 누름이면 맨 앞 원소가 맨 마지막 원소로 배치-->
+        temp = numberArr[0];  //첫번째 원소
+        numberArr.push(temp);
+        numberArr.shift();
+        console.log(numberArr);
+        removeArrElement();
+        appendArrElement();
+      }
+
+      if (event.target.id === 'right-btn') {
+        console.log('오른 누름');
+        // <!--?오른 누름이면 맨 뒤 원소가 맨 첫번쨰 원소로 배치-->
+        temp = numberArr[numberArr.length - 1]; //마지막 원소
+        numberArr.unshift(temp);
+        numberArr.pop();  //!배열의 마지막 요소 삭제!
+        console.log(numberArr);
+        removeArrElement();
+        appendArrElement();
+      }
+
+      // 이벤트 타겟을 선택하지 않은 경우에 뭘 선택한 것인지 콘솔에 찍어줄 부분
+      if (event.target.id === root.id) {
+        console.log(`${root.id}를 선택함`);
+      }
+
+          // <!--!매우 중요!-->
+    // 2. 배열에 자식요소로 배열 메서드를 사용해 바꿔준 값을 넣어줄 함수를 만든다 
+    // => 배열의 자식요소로 배열 메서드를 사용해 바꿔준 값을 배열의 인덱스에 각각 넣어줘야 한다
+    const appendArrElement = (element) => {
+      numberArr.forEach(element => {
+        // <!--!.forEach()를 사용하면 각각 배열 메서드에 적용할 수 있겠지?
+        const appendElement = document.createElement(appendName(root));
+        // <!--?바꿔준 값을 인덱스번에 각각 넣어준다? => 배열 메서드 
+        appendElement.textContent = element;
+        numberCon.appendChild(appendElement);
+      })
+    }
+
+
+    // 1. 배열의 첫번째 요소를 제거해주는 함수를 만든다
+    // => 배열의 첫번째 요소를 제거해주는 
+    // <!--?append해준 함수의 값이 결국 값이 점점 동일해지는 문제가 있었다
+    const removeArrElement = (element) => {
+      while (numberCon.firstChild === true) {
+        numberCon.removeChild(numberCon.firstChild);
+      }
+    }
+
+    })
+
+
+  </script>
+
+</body>
+
+</html>
